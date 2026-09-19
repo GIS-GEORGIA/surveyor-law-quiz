@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ka" data-lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>კანონების ქვიზი ამზომველებისთვის · Law Quiz for Surveyors</title>
+<meta name="description" content="ორენოვანი სავარჯიშო ტესტი ამზომველებისთვის: „საჯარო რეესტრის შესახებ“ და მიწის ნაკვეთებზე უფლებათა რეგისტრაციის კანონები. Bilingual practice quiz for surveyors on Georgian registry and land registration law.">
+<meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1318" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="კანონების ქვიზი ამზომველებისთვის · Law Quiz for Surveyors">
+<meta property="og:description" content="71 კითხვა საჯარო რეესტრისა და მიწის რეგისტრაციის კანონებზე · 71 questions on Georgian registry and land law">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Georgian:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  // Apply saved theme/language before paint to avoid a flash.
+  (function () {
+    try {
+      var t = localStorage.getItem("slq-theme");
+      if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+      var l = localStorage.getItem("slq-lang");
+      if (l === "ka" || l === "en") { document.documentElement.lang = l; document.documentElement.setAttribute("data-lang", l); }
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">გადასვლა შინაარსზე</a>
+
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="brand" href="./" aria-label="Home">
+      <img src="favicon.svg" alt="" width="32" height="32">
+      <span class="brand-text">
+        <strong data-i18n="brand">კანონების ქვიზი</strong>
+        <small data-i18n="brandSub">ამზომველებისთვის</small>
+      </span>
+    </a>
+    <div class="tools">
+      <div class="seg" role="group" aria-label="Language">
+        <button type="button" data-set-lang="ka" lang="ka">ქარ</button>
+        <button type="button" data-set-lang="en" lang="en">EN</button>
+      </div>
+      <button type="button" class="icon-btn" id="themeBtn" aria-label="Toggle theme">
+        <svg class="i-sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+
+  <!-- START -->
+  <section id="screen-start" class="screen" hidden>
+    <div class="hero">
+      <p class="eyebrow" data-i18n="eyebrow">სავარჯიშო ტესტი</p>
+      <h1 data-i18n="title">კანონების ქვიზი ამზომველებისთვის</h1>
+      <p class="lead" data-i18n="lead">შეამოწმე ცოდნა საქართველოს იმ ორ კანონში, რომლებიც ამზომველის ყოველდღიურ საქმეს განსაზღვრავს.</p>
+      <div class="stats">
+        <div><b id="statTotal">71</b><span data-i18n="statQuestions">კითხვა</span></div>
+        <div><b>2</b><span data-i18n="statLaws">კანონი</span></div>
+        <div><b>2</b><span data-i18n="statLangs">ენა</span></div>
+      </div>
+    </div>
+
+    <form id="setup" class="card setup">
+      <h2 data-i18n="setupTitle">ტესტის პარამეტრები</h2>
+
+      <fieldset>
+        <legend data-i18n="pickLaw">კანონი</legend>
+        <div class="choices" id="lawChoices"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend data-i18n="pickCount">კითხვების რაოდენობა</legend>
+        <div class="chips" id="countChips"></div>
+      </fieldset>
+
+      <fieldset class="toggles">
+        <legend class="sr" data-i18n="options">პარამეტრები</legend>
+        <label class="switch"><input type="checkbox" id="optShuffleQ" checked><span></span><em data-i18n="shuffleQ">კითხვების არეული თანმიმდევრობა</em></label>
+        <label class="switch"><input type="checkbox" id="optShuffleA" checked><span></span><em data-i18n="shuffleA">პასუხების არეული თანმიმდევრობა</em></label>
+      </fieldset>
+
+      <button type="submit" class="btn primary big" data-i18n="start">დაწყება</button>
+      <p class="hint" data-i18n="kbdHint">კლავიატურა: 1–4 პასუხის ასარჩევად, Enter — შემდეგი.</p>
+    </form>
+
+    <section class="laws">
+      <h2 data-i18n="lawsTitle">რას მოიცავს</h2>
+      <div class="law-grid" id="lawCards"></div>
+    </section>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="screen-quiz" class="screen" hidden>
+    <div class="quiz-head">
+      <button type="button" class="btn ghost small" id="quitBtn" data-i18n="quit">← გასვლა</button>
+      <span class="counter" id="counter"></span>
+      <span class="live-score" id="liveScore"></span>
+    </div>
+    <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="progress"><i id="progressBar"></i></div>
+
+    <article class="card qcard" aria-live="polite">
+      <div class="meta">
+        <span class="pill" id="qLaw"></span>
+        <span class="where" id="qWhere"></span>
+      </div>
+      <h2 class="question" id="qText"></h2>
+      <div class="options" id="qOptions" role="list"></div>
+      <div class="feedback" id="qFeedback" role="status"></div>
+      <div class="actions">
+        <button type="button" class="btn primary" id="nextBtn" disabled></button>
+      </div>
+    </article>
+  </section>
+
+  <!-- RESULT -->
+  <section id="screen-result" class="screen" hidden>
+    <div class="card result">
+      <h1 id="resTitle"></h1>
+      <div class="ring" id="ring" style="--p:0">
+        <div><b id="resPct">0%</b><span id="resFrac">0 / 0</span></div>
+      </div>
+      <div class="res-stats">
+        <div class="ok"><b id="resOk">0</b><span data-i18n="correct">სწორი</span></div>
+        <div class="bad"><b id="resBad">0</b><span data-i18n="wrong">არასწორი</span></div>
+      </div>
+      <div class="by-law" id="byLaw"></div>
+      <div class="res-actions">
+        <button type="button" class="btn primary" id="retryWrongBtn" data-i18n="retryWrong">მხოლოდ შეცდომების გამეორება</button>
+        <button type="button" class="btn" id="againBtn" data-i18n="again">თავიდან დაწყება</button>
+      </div>
+    </div>
+
+    <section class="review">
+      <div class="review-head">
+        <h2 data-i18n="review">მიმოხილვა</h2>
+        <div class="seg small" role="group">
+          <button type="button" data-review="wrong" data-i18n="reviewWrong">შეცდომები</button>
+          <button type="button" data-review="all" data-i18n="reviewAll">ყველა</button>
+        </div>
+      </div>
+      <ol class="review-list" id="reviewList"></ol>
+    </section>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="credits">
+      <div>
+        <span data-i18n="ideaBy">იდეის ავტორი</span>
+        <strong data-i18n="nameGogita">გოგიტა შაინიძე</strong>
+      </div>
+      <div>
+        <span data-i18n="devBy">იდეის განმავითარებელი და შემოქმედი</span>
+        <strong data-i18n="nameGiorgi">გიორგი კაპანაძე</strong>
+      </div>
+    </div>
+    <p class="disclaimer" data-i18n-html="disclaimer">ტესტი სასწავლო მიზნით შეიქმნა და იურიდიულ კონსულტაციას არ წარმოადგენს. კანონების მოქმედი რედაქცია იხილეთ <a href="https://matsne.gov.ge/" target="_blank" rel="noopener">matsne.gov.ge</a>-ზე.</p>
+    <p class="fine">
+      <a href="https://github.com/GIS-GEORGIA/surveyor-law-quiz" target="_blank" rel="noopener">GitHub</a>
+      · <a href="https://github.com/GIS-GEORGIA" target="_blank" rel="noopener">GIS Georgia</a>
+    </p>
+  </div>
+</footer>
+
+<script src="assets/questions.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
