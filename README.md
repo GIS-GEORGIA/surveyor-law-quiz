@@ -29,8 +29,12 @@
 - 🎯 ერთი კანონის ან ორივეს ერთად არჩევა, კითხვების რაოდენობის არჩევა: **10, 20, 40 ან ყველა**.
 - 🔀 კითხვები და პასუხები ყოველ ჯერზე სხვა თანმიმდევრობით ჩნდება, ამიტომ ზეპირად დამახსოვრება არ გამოგადგება.
 - ✅ ყოველ პასუხზე მაშინვე ჩანს, სწორია თუ არა. არასწორის შემთხვევაში ნაჩვენებია სწორი პასუხიც.
+- 📖 პასუხის შემდეგ ჩანს **ამონარიდი კანონიდან**, თავისა და მუხლის მითითებით, და ბმული სრულ ტექსტზე matsne.gov.ge-ზე.
 - 📊 ბოლოს ჩანს შედეგი თითოეული კანონისთვის, შეცდომების სია თავისა და მუხლის მითითებით.
 - 🔁 მხოლოდ შეცდომების გამეორება, სანამ ყველაფერს სწორად არ უპასუხებ.
+- 💾 **პროგრესი ინახება** ამ მოწყობილობაზე: დაუმთავრებელი ტესტი შეგიძლია მოგვიანებით გააგრძელო, ხოლო შეცდენილ კითხვებზე ცალკე ივარჯიშო. პროგრესის წაშლა ერთი ღილაკით შეიძლება.
+- 📴 **ოფლაინ რეჟიმი**: საიტი ტელეფონზე აპლიკაციასავით დაინსტალირდება და ინტერნეტის გარეშეც მუშაობს. ინტერნეტთან ყოველთვის უახლესი ვერსია იტვირთება. ოფლაინ რეჟიმი გამოირთვება და ქეში სუფთავდება ერთი ღილაკით.
+- 🖨️ **დასაბეჭდი ვერსია**: ყველა კითხვა ერთ გვერდზე, სწორი პასუხებითა და კანონის ამონარიდებით ან მათ გარეშე. ინახება PDF-ადაც.
 
 ტესტი ტელეფონზეც და კომპიუტერზეც მუშაობს. რეგისტრაცია არ სჭირდება.
 
@@ -69,7 +73,7 @@ Open Source GIS საზოგადოება საქართველო
 
 **Law Quiz for Surveyors** is a free practice test at **[lawquiz.qgis.ge](https://lawquiz.qgis.ge/)**. It has 71 questions on two Georgian laws: the Law on Public Registry, and the Law on Systematic and Sporadic Registration of Rights to Land Plots and Improvement of Cadastral Data.
 
-You can take it in Georgian or English, in light or dark mode. Pick one law or both, and choose how many questions to answer. Questions and answers are shuffled every time. At the end you get your score for each law, a list of mistakes, and the option to retry only the mistakes.
+You can take it in Georgian or English, in light or dark mode. Pick one law or both, and choose how many questions to answer. Questions and answers are shuffled every time. At the end you get your score for each law, a list of mistakes, and the option to retry only the mistakes. After each answer you see the relevant excerpt from the law with a link to matsne.gov.ge. Progress is saved on your device, the site works offline and can be installed on a phone, and there is a printable version with or without answers.
 
 **Found a mistake or have an idea?** Email [aigroegsig@gmail.com](mailto:aigroegsig@gmail.com), or use the "Mistake in this question?" link under any question.
 

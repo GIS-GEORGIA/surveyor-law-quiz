@@ -52,6 +52,23 @@
       mailBugBody: "გამარჯობა!\n\nრომელ კითხვაშია შეცდომა (ნომერი ან ტექსტი):\n\nრა არის არასწორი:\n\nრა უნდა იყოს (სასურველია კანონის მუხლის მითითებით):\n",
       mailIdeaSubj: "ამზომველების ქვიზი — იდეა",
       mailIdeaBody: "გამარჯობა!\n\nჩემი იდეა:\n",
+      lawSays: "რას ამბობს კანონი", fullText: "სრული ტექსტი matsne.gov.ge-ზე", unofficial: "",
+      resumeTitle: "დაუმთავრებელი ტესტი", resumeInfo: " · კითხვა {i} / {n}, სწორი {ok}", resume: "გაგრძელება", discard: "გაუქმება",
+      myProgress: "ჩემი პროგრესი",
+      progStats: "ნანახი: <b>{seen}</b> / {n} · ბოლოს სწორად: <b>{ok}</b> · გასამეორებელი: <b>{wrong}</b>",
+      progEmpty: "ჯერ არცერთ კითხვას არ გიპასუხია. პროგრესი ამ მოწყობილობაზე შეინახება.",
+      practiceWrong: "შეცდომებზე ვარჯიში ({n})", practiceNone: "გასამეორებელი არაფერია",
+      printVersion: "დასაბეჭდი ვერსია", resetProgress: "პროგრესის წაშლა",
+      resetConfirm: "წავშალო მთელი პროგრესი (ნანახი და შეცდენილი კითხვები, დაუმთავრებელი ტესტი)?",
+      resetDone: "პროგრესი წაიშალა",
+      offlineTitle: "ოფლაინ რეჟიმი", offlineLabel: "საიტის შენახვა ინტერნეტის გარეშე სამუშაოდ",
+      offOn: "✓ საიტი შენახულია და ინტერნეტის გარეშეც იმუშავებს. ინტერნეტთან ყოველთვის უახლესი ვერსია იტვირთება.",
+      offSaving: "ინახება…", offOff: "გამორთულია: საიტი მხოლოდ ინტერნეტით იმუშავებს.",
+      offNA: "ეს ბრაუზერი ოფლაინ რეჟიმს არ უჭერს მხარს.",
+      clearCache: "ქეშის გასუფთავება და განახლება", cacheCleared: "ქეში გასუფთავდა, იტვირთება უახლესი ვერსია…",
+      version: "ვერსია", updated: "საიტი განახლდა",
+      back: "← უკან", withAnswers: "სწორი პასუხებით", withExcerpts: "კანონის ამონარიდებით", printNow: "ბეჭდვა / PDF",
+      prSub: "{law} · {n} კითხვა", prFoot: "lawquiz.qgis.ge · ტესტი სასწავლო მიზნით შეიქმნა და იურიდიულ კონსულტაციას არ წარმოადგენს.",
       mailQSubj: "ამზომველების ქვიზი — კითხვა №{n}",
       mailQBody: "კითხვა №{n}: {q}\n{where}\n\nსაიტზე მითითებული სწორი პასუხი: {a}\n\nრა არის არასწორი:\n\nრა უნდა იყოს (სასურველია კანონის მუხლის მითითებით):\n"
     },
@@ -102,6 +119,23 @@
       mailBugBody: "Hello!\n\nWhich question (number or text):\n\nWhat is wrong:\n\nWhat it should be (ideally with the article of the law):\n",
       mailIdeaSubj: "Surveyor law quiz — idea",
       mailIdeaBody: "Hello!\n\nMy idea:\n",
+      lawSays: "What the law says", fullText: "Full text on matsne.gov.ge", unofficial: "Unofficial translation. The official text is in Georgian.",
+      resumeTitle: "Unfinished quiz", resumeInfo: " · question {i} / {n}, {ok} correct", resume: "Continue", discard: "Discard",
+      myProgress: "My progress",
+      progStats: "Seen: <b>{seen}</b> / {n} · Correct last time: <b>{ok}</b> · To review: <b>{wrong}</b>",
+      progEmpty: "You haven’t answered any questions yet. Progress is saved on this device.",
+      practiceWrong: "Practise mistakes ({n})", practiceNone: "Nothing to review",
+      printVersion: "Printable version", resetProgress: "Reset progress",
+      resetConfirm: "Delete all progress (seen and missed questions, unfinished quiz)?",
+      resetDone: "Progress deleted",
+      offlineTitle: "Offline mode", offlineLabel: "Save the site to use without internet",
+      offOn: "✓ The site is saved and works offline. When online, the latest version always loads.",
+      offSaving: "Saving…", offOff: "Off: the site works only online.",
+      offNA: "This browser does not support offline mode.",
+      clearCache: "Clear cache and update", cacheCleared: "Cache cleared, loading the latest version…",
+      version: "Version", updated: "The site has been updated",
+      back: "← Back", withAnswers: "With correct answers", withExcerpts: "With law excerpts", printNow: "Print / PDF",
+      prSub: "{law} · {n} questions", prFoot: "lawquiz.qgis.ge · A study aid, not legal advice. English wording is an unofficial translation.",
       mailQSubj: "Surveyor law quiz — question #{n}",
       mailQBody: "Question #{n}: {q}\n{where}\n\nCorrect answer shown on the site: {a}\n\nWhat is wrong:\n\nWhat it should be (ideally with the article of the law):\n"
     }
@@ -115,10 +149,48 @@
 
   var root = document.documentElement;
   var lang = root.getAttribute("data-lang") === "en" ? "en" : "ka";
-  var settings = Object.assign({ law: "all", count: 0, shuffleQ: true, shuffleA: true }, load("settings", {}));
+  var settings = Object.assign({ law: "all", count: 0, shuffleQ: true, shuffleA: true, offline: true }, load("settings", {}));
+  var hist = load("hist", {});   // question id -> { c: correct count, w: wrong count, l: 1 if last answer correct }
 
   var run = null;          // { items: [{q, order, pick}], i }
   var reviewMode = "wrong";
+
+  function saveRun() {
+    if (!run) { try { localStorage.removeItem("slq-run"); } catch (e) {} return; }
+    save("run", { i: run.i, items: run.items.map(function (x) { return [x.q.id, x.order, x.pick]; }) });
+  }
+  function loadRun() {
+    var r = load("run", null);
+    if (!r || !r.items || !r.items.length) return null;
+    try {
+      return { i: r.i, items: r.items.map(function (x) { return { q: ALL[x[0]], order: x[1], pick: x[2] }; }) };
+    } catch (e) { return null; }
+  }
+  var toastTimer;
+  function toast(msg) {
+    var tt = $("toast");
+    tt.textContent = msg; tt.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { tt.hidden = true; }, 3200);
+  }
+  function matsneUrl(q) {
+    return "https://matsne.gov.ge/" + (lang === "en" ? "en" : "ka") + "/document/view/" + DATA.laws[q.law].doc;
+  }
+  function explainNode(q, forPrint) {
+    var box = el("div", forPrint ? "pr-x" : null);
+    var head = el("div", "x-head");
+    if (!forPrint) head.innerHTML = '<svg aria-hidden="true"><use href="#i-book"/></svg>';
+    head.appendChild(el("span", null, t("lawSays") + " · " + where(q)));
+    box.appendChild(head);
+    box.appendChild(el("blockquote", null, q.x[lang]));
+    if (lang === "en" && t("unofficial")) box.appendChild(el("small", "x-note", t("unofficial")));
+    if (!forPrint) {
+      var a = el("a", "x-link", t("fullText") + " ↗");
+      a.href = matsneUrl(q); a.target = "_blank"; a.rel = "noopener";
+      box.appendChild(a);
+    }
+    return box;
+  }
 
   function t(k, vars) {
     var s = I18N[lang][k] || k;
@@ -173,8 +245,10 @@
     $("mailBug").href = mailto(t("mailBugSubj"), t("mailBugBody"));
     $("mailIdea").href = mailto(t("mailIdeaSubj"), t("mailIdeaBody"));
     renderSetup();
+    renderMine();
     if (!$("screen-quiz").hidden) renderQuestion();
     if (!$("screen-result").hidden) renderResult();
+    if (!$("screen-print").hidden) renderPrint();
   }
   document.querySelectorAll("[data-set-lang]").forEach(function (b) {
     b.addEventListener("click", function () {
@@ -186,9 +260,51 @@
 
   /* ---------- screens ---------- */
   function show(name) {
-    ["start", "quiz", "result"].forEach(function (s) { $("screen-" + s).hidden = s !== name; });
+    ["start", "quiz", "result", "print"].forEach(function (s) { $("screen-" + s).hidden = s !== name; });
+    if (name === "start") renderMine();
     window.scrollTo(0, 0);
   }
+
+  /* ---------- my progress ---------- */
+  function wrongIds() {
+    return ALL.filter(function (q) { return hist[q.id] && hist[q.id].l === 0; });
+  }
+  function renderMine() {
+    var ids = Object.keys(hist);
+    var seen = ids.length;
+    var ok = ids.filter(function (k) { return hist[k].l === 1; }).length;
+    var wrong = seen - ok;
+    $("progStats").innerHTML = seen ? t("progStats", { seen: seen, n: ALL.length, ok: ok, wrong: wrong }) : t("progEmpty");
+    $("progSeen").style.width = (seen / ALL.length * 100) + "%";
+    $("progOk").style.width = (ok / ALL.length * 100) + "%";
+    var pw = $("practiceWrongBtn");
+    pw.textContent = wrong ? t("practiceWrong", { n: wrong }) : t("practiceNone");
+    pw.disabled = !wrong;
+    $("resetProgBtn").hidden = !seen && !loadRun();
+
+    var saved = loadRun();
+    var rc = $("resumeCard");
+    rc.hidden = !saved;
+    if (saved) {
+      var sok = saved.items.filter(function (x) { return x.pick !== null && x.pick === x.q.a; }).length;
+      $("resumeInfo").textContent = t("resumeInfo", { i: saved.i + 1, n: saved.items.length, ok: sok });
+    }
+  }
+  $("practiceWrongBtn").addEventListener("click", function () { startRun(wrongIds()); });
+  $("resetProgBtn").addEventListener("click", function () {
+    if (!confirm(t("resetConfirm"))) return;
+    hist = {}; run = null;
+    try { localStorage.removeItem("slq-hist"); localStorage.removeItem("slq-run"); } catch (e) {}
+    renderMine();
+    toast(t("resetDone"));
+  });
+  $("resumeBtn").addEventListener("click", function () {
+    run = loadRun();
+    if (!run) return renderMine();
+    show("quiz");
+    renderQuestion();
+  });
+  $("discardBtn").addEventListener("click", function () { run = null; saveRun(); renderMine(); });
 
   /* ---------- setup ---------- */
   function pool() { return settings.law === "all" ? ALL : ALL.filter(function (q) { return q.law === settings.law; }); }
@@ -273,6 +389,7 @@
         return { q: q, order: settings.shuffleA ? shuffle([0, 1, 2, 3]) : [0, 1, 2, 3], pick: null };
       })
     };
+    saveRun();
     show("quiz");
     renderQuestion();
   }
@@ -331,8 +448,12 @@
     var fb = $("qFeedback");
     fb.className = "feedback";
     fb.textContent = "";
+    var ex = $("qExplain");
+    ex.innerHTML = "";
+    ex.hidden = it.pick === null || !q.x;
     $("nextBtn").disabled = it.pick === null;
     if (it.pick === null) return;
+    if (q.x) ex.appendChild(explainNode(q));
     document.querySelectorAll("#qOptions .opt").forEach(function (b) {
       var o = +b.dataset.orig;
       b.disabled = true;
@@ -354,23 +475,28 @@
     var it = run.items[run.i];
     if (it.pick !== null) return;
     it.pick = orig;
+    var h = hist[it.q.id] || { c: 0, w: 0, l: 0 };
+    if (orig === it.q.a) { h.c++; h.l = 1; } else { h.w++; h.l = 0; }
+    hist[it.q.id] = h;
+    save("hist", hist);
+    saveRun();
     renderQuestion();
     $("nextBtn").focus({ preventScroll: true });
   }
 
   function next() {
     if (run.items[run.i].pick === null) return;
-    if (run.i < run.items.length - 1) { run.i++; renderQuestion(); window.scrollTo({ top: 0 }); }
-    else { reviewMode = "wrong"; show("result"); renderResult(); }
+    if (run.i < run.items.length - 1) { run.i++; saveRun(); renderQuestion(); window.scrollTo({ top: 0 }); }
+    else {
+      reviewMode = "wrong";
+      try { localStorage.removeItem("slq-run"); } catch (e) {}
+      show("result"); renderResult();
+    }
   }
   $("nextBtn").addEventListener("click", next);
 
-  $("quitBtn").addEventListener("click", function () {
-    var answered = run && run.items.some(function (x) { return x.pick !== null; });
-    if (answered && !confirm(t("quitConfirm"))) return;
-    run = null;
-    show("start");
-  });
+  // Leaving keeps the unfinished quiz; it can be resumed from the start screen.
+  $("quitBtn").addEventListener("click", function () { saveRun(); show("start"); });
 
   document.addEventListener("keydown", function (e) {
     if ($("screen-quiz").hidden || e.ctrlKey || e.metaKey || e.altKey) return;
@@ -431,6 +557,12 @@
       li.appendChild(el("div", "rw", DATA.laws[q.law].short[lang] + " · " + where(q)));
       if (!ok) li.appendChild(el("div", "ra you", t("yourAnswer") + (it.pick === null ? "—" : q.o[it.pick][lang])));
       li.appendChild(el("div", "ra right", t("rightAnswer") + q.o[q.a][lang]));
+      if (q.x) {
+        var d = el("details", "rx");
+        d.appendChild(el("summary", null, t("lawSays")));
+        d.appendChild(explainNode(q));
+        li.appendChild(d);
+      }
       list.appendChild(li);
     });
     if (!shown) list.appendChild(el("li", "review-empty", t("noWrong")));
@@ -451,7 +583,93 @@
   });
   $("againBtn").addEventListener("click", function () { run = null; show("start"); });
 
+  /* ---------- print ---------- */
+  function renderPrint() {
+    var qs = pool();
+    var withA = $("prAnswers").checked, withX = $("prExcerpts").checked;
+    var lawName = settings.law === "all" ? t("bothLaws") : DATA.laws[settings.law].short[lang];
+    $("prTitle").textContent = t("title");
+    $("prSub").textContent = t("prSub", { law: lawName, n: qs.length });
+    $("prFoot").textContent = t("prFoot");
+    var body = $("prBody");
+    body.innerHTML = "";
+    var curLaw = null, ol = null;
+    qs.forEach(function (q) {
+      if (q.law !== curLaw) {
+        curLaw = q.law;
+        body.appendChild(el("h2", null, DATA.laws[q.law][lang]));
+        ol = el("ol", "pr-list");
+        body.appendChild(ol);
+      }
+      var li = el("li");
+      li.value = q.id + 1;
+      li.appendChild(el("div", "pr-q", q.q[lang]));
+      li.appendChild(el("div", "pr-w", where(q)));
+      var ul = el("ul", "pr-o");
+      q.o.forEach(function (o, k) {
+        var oi = el("li", withA && k === q.a ? "right" : null, KEYS[lang][k] + ") " + o[lang]);
+        ul.appendChild(oi);
+      });
+      li.appendChild(ul);
+      if (withX && q.x) li.appendChild(explainNode(q, true));
+      ol.appendChild(li);
+    });
+  }
+  $("printBtn").addEventListener("click", function () { show("print"); renderPrint(); });
+  $("printBack").addEventListener("click", function () { show("start"); });
+  $("prAnswers").addEventListener("change", renderPrint);
+  $("prExcerpts").addEventListener("change", renderPrint);
+  $("printGo").addEventListener("click", function () { window.print(); });
+
+  /* ---------- offline (service worker) ---------- */
+  var APP_VERSION = "1.1.0";
+  var SW_OK = "serviceWorker" in navigator && location.protocol.indexOf("http") === 0;
+  function offlineStatus(key) { $("offlineStatus").textContent = t(key); }
+  function dropCaches() {
+    var tasks = [];
+    if (window.caches) tasks.push(caches.keys().then(function (ks) { return Promise.all(ks.map(function (k) { return caches.delete(k); })); }));
+    if (SW_OK) tasks.push(navigator.serviceWorker.getRegistrations().then(function (rs) { return Promise.all(rs.map(function (r) { return r.unregister(); })); }));
+    return Promise.all(tasks);
+  }
+  function applyOffline() {
+    $("optOffline").checked = !!settings.offline;
+    if (!SW_OK) { $("optOffline").disabled = true; $("clearCacheBtn").hidden = true; return offlineStatus("offNA"); }
+    if (settings.offline) {
+      offlineStatus("offSaving");
+      navigator.serviceWorker.register("sw.js", { updateViaCache: "none" })
+        .then(function () { return navigator.serviceWorker.ready; })
+        .then(function (reg) {
+          return caches.keys().then(function (ks) {
+            if (ks.some(function (k) { return k.indexOf("lawquiz-") === 0; })) return "done";
+            return new Promise(function (res) {
+              var ch = new MessageChannel();
+              ch.port1.onmessage = function (m) { res(m.data); };
+              reg.active.postMessage("precache", [ch.port2]);
+              setTimeout(function () { res("error"); }, 20000);
+            });
+          });
+        })
+        .then(function (r) { offlineStatus(r === "done" ? "offOn" : "offNA"); })
+        .catch(function () { offlineStatus("offNA"); });
+    } else {
+      dropCaches().then(function () { offlineStatus("offOff"); });
+    }
+  }
+  $("optOffline").addEventListener("change", function (e) {
+    settings.offline = e.target.checked; save("settings", settings); applyOffline();
+  });
+  $("clearCacheBtn").addEventListener("click", function () {
+    toast(t("cacheCleared"));
+    dropCaches().then(function () { location.reload(); });
+  });
+  if (SW_OK) {
+    var hadController = !!navigator.serviceWorker.controller;
+    navigator.serviceWorker.addEventListener("controllerchange", function () { if (hadController) toast(t("updated")); });
+  }
+  $("appVersion").textContent = APP_VERSION;
+
   /* ---------- boot ---------- */
   applyLang();
+  applyOffline();
   show("start");
 })();

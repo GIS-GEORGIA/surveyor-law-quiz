@@ -24,6 +24,8 @@
 <meta name="twitter:image" content="https://lawquiz.qgis.ge/og.jpg">
 <link rel="canonical" href="https://lawquiz.qgis.ge/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Georgian:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -50,6 +52,8 @@
 <symbol id="i-globe" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3Z"/></g></symbol>
 <symbol id="i-bug" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="7" y="7" width="10" height="13" rx="5"/><path d="M9 7a3 3 0 0 1 6 0M12 11v9M3 13h4M17 13h4M4 7l3 2M20 7l-3 2M4 19l3-2M20 19l-3-2"/></g></symbol>
 <symbol id="i-bulb" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3Z"/></symbol>
+<symbol id="i-print" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M7 8V3.5h10V8M7 17H4.5V9.5a1.5 1.5 0 0 1 1.5-1.5h12a1.5 1.5 0 0 1 1.5 1.5V17H17"/><path d="M7 14h10v6.5H7z"/></g></symbol>
+<symbol id="i-book" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5zM4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/></symbol>
 <symbol id="i-flag" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 21V4m0 0h11l-2 4 2 4H5"/></symbol>
 </svg>
 
@@ -92,6 +96,17 @@
       </div>
     </div>
 
+    <div class="card resume" id="resumeCard" hidden>
+      <div>
+        <strong data-i18n="resumeTitle">დაუმთავრებელი ტესტი</strong>
+        <span id="resumeInfo"></span>
+      </div>
+      <div class="resume-actions">
+        <button type="button" class="btn primary" id="resumeBtn" data-i18n="resume">გაგრძელება</button>
+        <button type="button" class="btn ghost" id="discardBtn" data-i18n="discard">გაუქმება</button>
+      </div>
+    </div>
+
     <form id="setup" class="card setup">
       <h2 data-i18n="setupTitle">ტესტის პარამეტრები</h2>
 
@@ -114,6 +129,25 @@
       <button type="submit" class="btn primary big" data-i18n="start">დაწყება</button>
       <p class="hint" data-i18n="kbdHint">კლავიატურა: 1–4 პასუხის ასარჩევად, Enter — შემდეგი.</p>
     </form>
+
+    <section class="card mine" id="mine">
+      <h2 data-i18n="myProgress">ჩემი პროგრესი</h2>
+      <div class="prog-stats" id="progStats"></div>
+      <div class="prog-bar" aria-hidden="true"><i id="progSeen"></i><i id="progOk"></i></div>
+      <div class="tool-actions">
+        <button type="button" class="btn primary" id="practiceWrongBtn"></button>
+        <button type="button" class="btn" id="printBtn"><svg aria-hidden="true"><use href="#i-print"/></svg><span data-i18n="printVersion">დასაბეჭდი ვერსია</span></button>
+        <button type="button" class="btn ghost danger" id="resetProgBtn" data-i18n="resetProgress">პროგრესის წაშლა</button>
+      </div>
+
+      <div class="offline" id="offlineBox">
+        <h3 data-i18n="offlineTitle">ოფლაინ რეჟიმი</h3>
+        <label class="switch"><input type="checkbox" id="optOffline"><span></span><em data-i18n="offlineLabel">საიტის შენახვა ინტერნეტის გარეშე სამუშაოდ</em></label>
+        <p class="status" id="offlineStatus"></p>
+        <button type="button" class="btn small" id="clearCacheBtn" data-i18n="clearCache">ქეშის გასუფთავება და განახლება</button>
+        <p class="version"><span data-i18n="version">ვერსია</span> <span id="appVersion"></span></p>
+      </div>
+    </section>
 
     <section class="laws">
       <h2 data-i18n="lawsTitle">რას მოიცავს</h2>
@@ -149,6 +183,7 @@
       <h2 class="question" id="qText"></h2>
       <div class="options" id="qOptions" role="list"></div>
       <div class="feedback" id="qFeedback" role="status"></div>
+      <div class="explain" id="qExplain" hidden></div>
       <div class="actions">
         <a class="report" id="qReport"><svg aria-hidden="true"><use href="#i-flag"/></svg><span data-i18n="reportQ">შეცდომაა ამ კითხვაში?</span></a>
         <button type="button" class="btn primary" id="nextBtn" disabled></button>
@@ -186,7 +221,25 @@
     </section>
   </section>
 
+  <!-- PRINT -->
+  <section id="screen-print" class="screen" hidden>
+    <div class="print-toolbar card">
+      <button type="button" class="btn ghost small" id="printBack" data-i18n="back">← უკან</button>
+      <label class="switch"><input type="checkbox" id="prAnswers" checked><span></span><em data-i18n="withAnswers">სწორი პასუხებით</em></label>
+      <label class="switch"><input type="checkbox" id="prExcerpts" checked><span></span><em data-i18n="withExcerpts">კანონის ამონარიდებით</em></label>
+      <button type="button" class="btn primary" id="printGo"><svg aria-hidden="true"><use href="#i-print"/></svg><span data-i18n="printNow">ბეჭდვა / PDF</span></button>
+    </div>
+    <div class="print-doc">
+      <h1 id="prTitle"></h1>
+      <p class="pr-sub" id="prSub"></p>
+      <div id="prBody"></div>
+      <p class="pr-foot" id="prFoot"></p>
+    </div>
+  </section>
+
 </main>
+
+<div class="toast" id="toast" role="status" hidden></div>
 
 <footer class="footer">
   <div class="wrap">
