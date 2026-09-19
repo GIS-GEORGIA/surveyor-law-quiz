@@ -1,39 +1,82 @@
-# კანონების ქვიზი ამზომველებისთვის · Law Quiz for Surveyors
+<div align="center">
 
-ორენოვანი (ქართული / English) სავარჯიშო ტესტი ამზომველებისთვის — 71 კითხვა ორ კანონზე:
+<img src="favicon.svg" width="72" alt="">
 
-- საქართველოს კანონი „საჯარო რეესტრის შესახებ“ — 45 კითხვა
-- საქართველოს კანონი „მიწის ნაკვეთებზე უფლებათა სისტემური და სპორადული რეგისტრაციის წესისა და საკადასტრო მონაცემების სრულყოფის შესახებ“ — 26 კითხვა
+# კანონების ქვიზი ამზომველებისთვის
 
-**იდეის ავტორი:** გოგიტა შაინიძე (Gogita Shainidze)
-**იდეის განმავითარებელი და შემოქმედი:** გიორგი კაპანაძე (Giorgi Kapanadze)
+**Law Quiz for Surveyors**
 
-## შესაძლებლობები / Features
+### 👉 [lawquiz.qgis.ge](https://lawquiz.qgis.ge/)
 
-- ქართული და ინგლისური ინტერფეისი, გადართვა ტესტის შუაშიც
-- ნათელი და მუქი თემა (სისტემის პარამეტრით ან ხელით)
-- კანონის არჩევა, კითხვების რაოდენობა (10 / 20 / 40 / ყველა)
-- კითხვებისა და პასუხების არეული თანმიმდევრობა
-- შედეგი კანონების მიხედვით, შეცდომების მიმოხილვა და მხოლოდ შეცდომების გამეორება
-- კლავიატურა: `1`–`4` პასუხი, `Enter` შემდეგი
-
-## სტრუქტურა
-
-```
-index.html          გვერდი
-assets/style.css    დიზაინი (ნათელი/მუქი ტოკენები)
-assets/app.js       ლოგიკა და ინტერფეისის თარგმანი
-assets/questions.js კითხვები (ka + en)
-```
-
-კითხვის დასამატებლად `assets/questions.js`-ში ახალი ობიექტი ჩაამატეთ:
-`law` (`registry` ან `land`), `ch`, `art`, `q`, `o` (4 პასუხი, თითოეული `{ka, en}`) და `a` (სწორი პასუხის ინდექსი 0-დან).
-
-## გაშვება
-
-სტატიკური საიტია, build არ სჭირდება — გახსენით `index.html` ან GitHub Pages.
+</div>
 
 ---
 
-ტესტი სასწავლო მიზნით შეიქმნა და იურიდიულ კონსულტაციას არ წარმოადგენს. ინგლისური ტექსტი არაოფიციალური თარგმანია.
-კანონების მოქმედი რედაქცია: [matsne.gov.ge](https://matsne.gov.ge/).
+## რა არის ეს
+
+უფასო სავარჯიშო ტესტი ამზომველებისთვის და ყველასთვის, ვინც საკადასტრო და სარეგისტრაციო საქმით არის დაკავებული.
+ტესტი შეიცავს **71 კითხვას** საქართველოს ორ კანონზე:
+
+| კანონი | კითხვები |
+|---|:---:|
+| „საჯარო რეესტრის შესახებ“ | 45 |
+| „მიწის ნაკვეთებზე უფლებათა სისტემური და სპორადული რეგისტრაციის წესისა და საკადასტრო მონაცემების სრულყოფის შესახებ“ | 26 |
+
+## რისი გაკეთება შეიძლება
+
+- 🇬🇪 🇬🇧 ტესტის გავლა **ქართულად ან ინგლისურად**. ენა შუა ტესტშიც გადაირთვება.
+- 🌗 **ნათელი ან მუქი** ფონის არჩევა.
+- 🎯 ერთი კანონის ან ორივეს ერთად არჩევა, კითხვების რაოდენობის არჩევა: **10, 20, 40 ან ყველა**.
+- 🔀 კითხვები და პასუხები ყოველ ჯერზე სხვა თანმიმდევრობით ჩნდება, ამიტომ ზეპირად დამახსოვრება არ გამოგადგება.
+- ✅ ყოველ პასუხზე მაშინვე ჩანს, სწორია თუ არა. არასწორის შემთხვევაში ნაჩვენებია სწორი პასუხიც.
+- 📊 ბოლოს ჩანს შედეგი თითოეული კანონისთვის, შეცდომების სია თავისა და მუხლის მითითებით.
+- 🔁 მხოლოდ შეცდომების გამეორება, სანამ ყველაფერს სწორად არ უპასუხებ.
+
+ტესტი ტელეფონზეც და კომპიუტერზეც მუშაობს. რეგისტრაცია არ სჭირდება.
+
+## იპოვე შეცდომა ან გაქვს იდეა?
+
+კანონები იცვლება და ზოგი კითხვა შეიძლება მოძველდეს. თუ რომელიმე პასუხი არასწორად გეჩვენება ან ახალი კითხვის იდეა გაქვს, გვაცნობე:
+
+- ✉️ ელფოსტა: **[aigroegsig@gmail.com](mailto:aigroegsig@gmail.com)**
+- 🚩 საიტზე ყოველ კითხვას აქვს ღილაკი **„შეცდომაა ამ კითხვაში?“**. ის წერილს უკვე შევსებულს ამზადებს, კითხვის ნომრითა და ტექსტით.
+- 🐛 GitHub-ზე: [Issue-ს გახსნა](https://github.com/GIS-GEORGIA/surveyor-law-quiz/issues/new)
+
+შესწორების გამოგზავნისას სასურველია მიუთითო კანონის შესაბამისი მუხლი.
+
+## ავტორები
+
+| | |
+|---|---|
+| **იდეის ავტორი** | გოგიტა შაინიძე · Gogita Shainidze |
+| **იდეის განმავითარებელი და შემოქმედი** | გიორგი კაპანაძე · Giorgi Kapanadze |
+
+## GIS GEORGIA
+
+Open Source GIS საზოგადოება საქართველოში.
+
+[🌐 ვებგვერდი](https://sites.google.com/view/gisgeo/) ·
+[Facebook](https://www.facebook.com/GISGEORGIA) ·
+[Instagram](https://www.instagram.com/gis_georgia/) ·
+[LinkedIn](https://www.linkedin.com/company/gisgeorgia/) ·
+[GitHub](https://github.com/GIS-GEORGIA) ·
+[✉️ aigroegsig@gmail.com](mailto:aigroegsig@gmail.com)
+
+---
+
+<details>
+<summary><b>English</b></summary>
+
+**Law Quiz for Surveyors** is a free practice test at **[lawquiz.qgis.ge](https://lawquiz.qgis.ge/)**. It has 71 questions on two Georgian laws: the Law on Public Registry, and the Law on Systematic and Sporadic Registration of Rights to Land Plots and Improvement of Cadastral Data.
+
+You can take it in Georgian or English, in light or dark mode. Pick one law or both, and choose how many questions to answer. Questions and answers are shuffled every time. At the end you get your score for each law, a list of mistakes, and the option to retry only the mistakes.
+
+**Found a mistake or have an idea?** Email [aigroegsig@gmail.com](mailto:aigroegsig@gmail.com), or use the "Mistake in this question?" link under any question.
+
+**Idea by** Gogita Shainidze · **Developed and built by** Giorgi Kapanadze
+
+</details>
+
+---
+
+<sub>ტესტი სასწავლო მიზნით შეიქმნა და იურიდიულ კონსულტაციას არ წარმოადგენს. ინგლისური ტექსტი არაოფიციალური თარგმანია. კანონების მოქმედი რედაქცია იხილეთ [matsne.gov.ge](https://matsne.gov.ge/)-ზე.</sub>

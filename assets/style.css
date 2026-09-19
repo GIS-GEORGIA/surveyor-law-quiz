@@ -342,3 +342,38 @@ legend { font-weight: 600; font-size: 14px; color: var(--muted); margin-bottom: 
 /* Uppercase only in English: in Georgian it would switch to Mtavruli. */
 :root[data-lang="en"] .eyebrow,
 :root[data-lang="en"] .credits span { text-transform: uppercase; letter-spacing: .06em; }
+
+/* ---------- contact & social ---------- */
+.contact { margin-top: 36px; }
+.contact h2 { margin: 0 0 8px; font-size: 19px; }
+.contact > p { margin: 0 0 16px; color: var(--muted); }
+.contact-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.contact-actions .btn { text-decoration: none; }
+.btn svg, .report svg, .social-list svg { width: 18px; height: 18px; fill: currentColor; flex: none; }
+.contact .contact-mail { margin: 14px 0 0; font-size: 14px; color: var(--muted); }
+
+.actions { align-items: center; gap: 12px; }
+.report {
+  margin-right: auto; display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13.5px; color: var(--muted); text-decoration: none;
+}
+.report:hover { color: var(--bad); text-decoration: underline; }
+.report svg { width: 16px; height: 16px; }
+
+.social { border-top: 1px solid var(--line); padding-top: 16px; margin-top: 16px; }
+.social-title { margin: 0 0 10px; }
+.social-title span { color: var(--muted); }
+.social-list { list-style: none; margin: 0 0 12px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.social-list a {
+  display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--surface-2); color: var(--text);
+  text-decoration: none; font-size: 14px; font-weight: 500;
+}
+.social-list a:hover { border-color: var(--accent); color: var(--accent); }
+
+@media (max-width: 520px) {
+  .contact-actions .btn { width: 100%; }
+  .actions { flex-wrap: wrap-reverse; }
+  .actions .btn { width: 100%; }
+  .report { margin: 0 auto; }
+}

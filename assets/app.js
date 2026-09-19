@@ -42,7 +42,18 @@
       nameGiorgi: "გიორგი კაპანაძე",
       disclaimer: "ტესტი სასწავლო მიზნით შეიქმნა და იურიდიულ კონსულტაციას არ წარმოადგენს. კანონების მოქმედი რედაქცია იხილეთ <a href=\"https://matsne.gov.ge/\" target=\"_blank\" rel=\"noopener\">matsne.gov.ge</a>-ზე.",
       themeToLight: "ნათელ თემაზე გადართვა", themeToDark: "მუქ თემაზე გადართვა",
-      docTitle: "კანონების ქვიზი ამზომველებისთვის"
+      docTitle: "კანონების ქვიზი ამზომველებისთვის",
+      contactTitle: "იპოვე შეცდომა ან გაქვს იდეა?",
+      contactLead: "ტესტი ერთობლივად იხვეწება. თუ რომელიმე პასუხი არასწორად გეჩვენება, კანონი შეიცვალა ან ახალი კითხვის იდეა გაქვს, მოგვწერე.",
+      reportBug: "შეცდომის შეტყობინება", shareIdea: "იდეის გაზიარება", orWrite: "ან პირდაპირ:",
+      reportQ: "შეცდომაა ამ კითხვაში?",
+      website: "ვებგვერდი", orgTag: "— Open Source GIS საზოგადოება საქართველოში", source: "საიტის წყარო GitHub-ზე",
+      mailBugSubj: "ამზომველების ქვიზი — შეცდომა",
+      mailBugBody: "გამარჯობა!\n\nრომელ კითხვაშია შეცდომა (ნომერი ან ტექსტი):\n\nრა არის არასწორი:\n\nრა უნდა იყოს (სასურველია კანონის მუხლის მითითებით):\n",
+      mailIdeaSubj: "ამზომველების ქვიზი — იდეა",
+      mailIdeaBody: "გამარჯობა!\n\nჩემი იდეა:\n",
+      mailQSubj: "ამზომველების ქვიზი — კითხვა №{n}",
+      mailQBody: "კითხვა №{n}: {q}\n{where}\n\nსაიტზე მითითებული სწორი პასუხი: {a}\n\nრა არის არასწორი:\n\nრა უნდა იყოს (სასურველია კანონის მუხლის მითითებით):\n"
     },
     en: {
       skip: "Skip to content",
@@ -81,7 +92,18 @@
       nameGiorgi: "Giorgi Kapanadze",
       disclaimer: "This quiz is a study aid, not legal advice. The English wording is an unofficial translation. For the current text of the laws, see <a href=\"https://matsne.gov.ge/\" target=\"_blank\" rel=\"noopener\">matsne.gov.ge</a>.",
       themeToLight: "Switch to light theme", themeToDark: "Switch to dark theme",
-      docTitle: "Law Quiz for Surveyors"
+      docTitle: "Law Quiz for Surveyors",
+      contactTitle: "Found a mistake or have an idea?",
+      contactLead: "This quiz improves with your help. If an answer looks wrong, a law has changed, or you have an idea for a new question, let us know.",
+      reportBug: "Report a mistake", shareIdea: "Share an idea", orWrite: "Or write directly:",
+      reportQ: "Mistake in this question?",
+      website: "Website", orgTag: "— Open Source GIS community in Georgia", source: "Site source on GitHub",
+      mailBugSubj: "Surveyor law quiz — mistake",
+      mailBugBody: "Hello!\n\nWhich question (number or text):\n\nWhat is wrong:\n\nWhat it should be (ideally with the article of the law):\n",
+      mailIdeaSubj: "Surveyor law quiz — idea",
+      mailIdeaBody: "Hello!\n\nMy idea:\n",
+      mailQSubj: "Surveyor law quiz — question #{n}",
+      mailQBody: "Question #{n}: {q}\n{where}\n\nCorrect answer shown on the site: {a}\n\nWhat is wrong:\n\nWhat it should be (ideally with the article of the law):\n"
     }
   };
   var KEYS = { ka: ["ა", "ბ", "გ", "დ"], en: ["A", "B", "C", "D"] };
@@ -100,7 +122,7 @@
 
   function t(k, vars) {
     var s = I18N[lang][k] || k;
-    if (vars) for (var v in vars) s = s.replace("{" + v + "}", vars[v]);
+    if (vars) for (var v in vars) s = s.split("{" + v + "}").join(vars[v]);
     return s;
   }
   function $(id) { return document.getElementById(id); }
@@ -114,6 +136,10 @@
     a = a.slice();
     for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var x = a[i]; a[i] = a[j]; a[j] = x; }
     return a;
+  }
+  var EMAIL = "aigroegsig@gmail.com";
+  function mailto(subj, body) {
+    return "mailto:" + EMAIL + "?subject=" + encodeURIComponent(subj) + "&body=" + encodeURIComponent(body);
   }
   function where(q) { return q.ch[lang] + (q.art[lang] ? " · " + q.art[lang] : ""); }
 
@@ -144,6 +170,8 @@
       b.setAttribute("aria-pressed", String(b.getAttribute("data-set-lang") === lang));
     });
     syncThemeBtn();
+    $("mailBug").href = mailto(t("mailBugSubj"), t("mailBugBody"));
+    $("mailIdea").href = mailto(t("mailIdeaSubj"), t("mailIdeaBody"));
     renderSetup();
     if (!$("screen-quiz").hidden) renderQuestion();
     if (!$("screen-result").hidden) renderResult();
@@ -277,6 +305,8 @@
     $("qLaw").textContent = DATA.laws[q.law].short[lang];
     $("qWhere").textContent = where(q);
     $("qText").textContent = q.q[lang];
+    var vars = { n: q.id + 1, q: q.q[lang], where: DATA.laws[q.law].short[lang] + " · " + where(q), a: q.o[q.a][lang] };
+    $("qReport").href = mailto(t("mailQSubj", vars), t("mailQBody", vars));
 
     var box = $("qOptions");
     box.innerHTML = "";
